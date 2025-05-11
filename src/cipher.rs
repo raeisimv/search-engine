@@ -43,3 +43,17 @@ impl Cipher {
             .map_err(|_| CipherError::DecryptionFailed)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use aes_gcm::KeyInit;
+    #[test]
+    fn should_encrypt_and_decrypt_text() {
+        let key = aes_gcm::Aes256Gcm::generate_key(OsRng);
+        let cipher = Cipher::from_key(&key).unwrap();
+        let encrypted = cipher.encrypt(b"hello world").unwrap();
+        let decrypted = cipher.decrypt(&encrypted).unwrap();
+        assert_eq!(decrypted, b"hello world");
+    }
+}
