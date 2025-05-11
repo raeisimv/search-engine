@@ -6,3 +6,4 @@ authors = ["Morteza Raeisi <raeisimv@outlook.com>"]
 
 [dependencies]
 aes-gcm = "0.10"
+async-fs = "2.1"
