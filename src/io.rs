@@ -4,6 +4,16 @@ pub trait File {
     async fn write(&mut self, buf: &[u8]) -> MyResult;
     async fn read(&self) -> MyResult<Vec<u8>>;
     async fn delete(self) -> MyResult;
+
+    async fn serialize<T: serde::Serialize>(&mut self, val: &T) -> MyResult {
+        let ser = serde_cbor::to_vec(val)?;
+        self.write(&ser).await?;
+        Ok(())
+    }
+    async fn deserialize<T: serde::de::DeserializeOwned>(&self) -> MyResult<T> {
+        let buf = self.read().await?;
+        Ok(serde_cbor::from_slice(&buf)?)
+    }
 }
 
 pub struct ClearFile {

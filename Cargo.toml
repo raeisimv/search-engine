@@ -7,3 +7,5 @@ authors = ["Morteza Raeisi <raeisimv@outlook.com>"]
 [dependencies]
 aes-gcm = "0.10"
 async-fs = "2.1"
+serde = { version = "1" }
+serde_cbor = "0.11"
