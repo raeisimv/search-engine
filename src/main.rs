@@ -7,7 +7,6 @@ use crate::cipher::Cipher;
 mod cipher;
 mod errors;
 mod fs;
-mod io;
 
 fn main() {
     let input = b"Hello world!";
