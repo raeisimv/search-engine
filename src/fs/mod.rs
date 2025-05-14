@@ -9,4 +9,6 @@ mod web_fs;
 #[cfg(target_arch = "wasm32")]
 pub use web_fs::*;
 
+mod dir;
 mod io;
+pub use io::*;
