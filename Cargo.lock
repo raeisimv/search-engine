@@ -334,6 +334,7 @@ version = "0.1.0"
 dependencies = [
  "aes-gcm",
  "async-fs",
+ "futures-lite",
  "serde",
  "serde_cbor",
 ]
