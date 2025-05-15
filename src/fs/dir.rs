@@ -21,7 +21,10 @@ impl Directory {
         async_fs::create_dir_all(&self.path_buf).await?;
         Ok(())
     }
-
+    pub async fn delete(&self) -> MyResult {
+        async_fs::remove_dir_all(&self.path_buf).await?;
+        Ok(())
+    }
     pub async fn get_files(&self) -> MyResult<Vec<PathBuf>> {
         use futures_lite::stream::StreamExt;
 
