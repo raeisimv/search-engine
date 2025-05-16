@@ -5,6 +5,7 @@
 use crate::cipher::Cipher;
 
 mod cipher;
+mod document;
 mod errors;
 mod fs;
 mod schema;
