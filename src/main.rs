@@ -8,6 +8,7 @@ mod cipher;
 mod document;
 mod errors;
 mod fs;
+mod index;
 mod schema;
 
 fn main() {
