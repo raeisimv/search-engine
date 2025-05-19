@@ -2,6 +2,7 @@ use std::collections::{BTreeMap, HashMap, HashSet};
 use std::sync::Arc;
 
 pub type EntryIndex = u32;
+pub type AttributeIndex = u8;
 pub type ShardingValue = u64;
 pub type DocumentIdentifier = Arc<str>;
 
@@ -10,12 +11,19 @@ pub struct Entry {
     pub name: DocumentIdentifier,
     pub shard: ShardingValue,
 }
+pub struct Attribute {
+    pub index: AttributeIndex,
+    pub name: Arc<str>,
+}
 pub struct PersistedCollection {
     pub entries: Vec<Entry>,
+    pub attributes: Vec<Attribute>,
 }
 pub struct Collection {
     entries_by_index: HashMap<EntryIndex, DocumentIdentifier>,
     entries_by_name: HashMap<DocumentIdentifier, EntryIndex>,
+    attributes_by_index: HashMap<AttributeIndex, Arc<str>>,
+    attributes_by_name: HashMap<Arc<str>, AttributeIndex>,
     sharding: BTreeMap<ShardingValue, HashSet<EntryIndex>>,
 }
 impl From<PersistedCollection> for Collection {
@@ -31,6 +39,8 @@ impl From<PersistedCollection> for Collection {
         Collection {
             entries_by_index,
             entries_by_name,
+            attributes_by_index: Default::default(),
+            attributes_by_name: Default::default(),
             sharding,
         }
     }
