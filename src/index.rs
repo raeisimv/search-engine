@@ -45,3 +45,27 @@ impl From<PersistedCollection> for Collection {
         }
     }
 }
+
+type ValueIndex = u8;
+pub struct BooleanIndex {
+    pub content: HashMap<bool, HashMap<AttributeIndex, HashMap<EntryIndex, HashSet<ValueIndex>>>>,
+}
+impl BooleanIndex {
+    pub fn new() -> Self {
+        Self {
+            content: HashMap::new(),
+        }
+    }
+    pub fn insert(
+        &mut self,
+        entry_index: EntryIndex,
+        attribute_index: AttributeIndex,
+        value_index: ValueIndex,
+        term: bool,
+    ) {
+        let term_postings = self.content.entry(term).or_default();
+        let attribute_postings = term_postings.entry(attribute_index).or_default();
+        let entry_postings = attribute_postings.entry(entry_index).or_default();
+        entry_postings.insert(value_index);
+    }
+}
