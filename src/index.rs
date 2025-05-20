@@ -68,4 +68,14 @@ impl BooleanIndex {
         let entry_postings = attribute_postings.entry(entry_index).or_default();
         entry_postings.insert(value_index);
     }
+    pub fn delete(&mut self, entry_index: EntryIndex) -> bool {
+        let mut changed = false;
+        for (_, postings) in self.content.iter_mut() {
+            for (_, postings) in postings.iter_mut() {
+                changed |= postings.remove(&entry_index).is_some();
+            }
+        }
+
+        changed
+    }
 }
