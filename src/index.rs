@@ -79,3 +79,12 @@ impl BooleanIndex {
         changed
     }
 }
+
+pub trait IsEmpty {
+    fn is_empty(&self) -> bool;
+}
+impl<K, V> IsEmpty for HashMap<K, V> {
+    fn is_empty(&self) -> bool {
+        self.is_empty()
+    }
+}
